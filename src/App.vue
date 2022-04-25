@@ -1,26 +1,41 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="bg-fuchsia-900 h-screen red">
+    <TestPage></TestPage>
+    <div class="container-page">
+      <div class="p-5 flex justify-center">
+        <SpecialTable></SpecialTable>
+      </div>
+      <div class="p-5 flex justify-center">
+        <BasicTable></BasicTable>
+        <div class="ml-8"
+             style="width: 20rem;">
+          <InfoTable></InfoTable>
+        </div>
+      </div>
+      <ControlScores></ControlScores>
+    </div>
+  </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+<script setup>
+import SpecialTable from './components/SpecialTable'
+import BasicTable from './components/BasicTable'
+import InfoTable from './components/InfoTable'
+import ControlScores from './components/ControlScores'
+import TestPage from "@/components/TestPage";
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="scss">
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.container-page {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.red {
+  border: solid red 1px;
 }
 </style>

@@ -1,58 +1,137 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+  <div class="p-5">
+    <div v-for="(a,ind) in matrix"
+         class="flex red"
+         :key="ind">
+      <div v-for="(aaa,ind) in a"
+           class="red w-10 text-white h-10 flex items-center justify-center"
+           :class="{'bg-blue-700':aaa === '2',
+                 'bg-green-700':aaa === '3',
+                 'bg-red-600':aaa === '1'}"
+           :key="ind">
+        {{ aaa }}
+      </div>
+    </div>
+    <button @click="run"> CLICK</button>
+    rows{{ rows }} columnIndex{{ columnIndex }} rowsIndex{{ rowsIndex }} round{{ round }}
+
+    <div class="p-10">
+      <div class="relative">
+        <div :key="a"
+             class="flex"
+             v-for="a in 6">
+          <div
+              class="red h-10 w-10 overflow-hidden bg-amber-50"
+              v-for="i in 18"
+              :key="i">
+          </div>
+        </div>
+        <div class="top-0 absolute left-0 flex flex-col flex-wrap h-60">
+          <div v-for="item in aaa"
+               class="h-10 w-10 "
+               :key="item">
+            <div class="m-1 font-bold  text-sm rounded-full w-8 h-8 flex items-center justify-center"
+                 :class="{'bg-blue-700':item === 'PLAYER',
+                 'bg-green-700':item === 'TIE',
+                 'bg-red-600':item === 'BANKER'}">
+              {{ item.split('')[0] }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
+<script setup>
+import {ref} from 'vue'
+//1: banker \\\\ 2: player
+let aaa = [
+  "1",
+  "2",
+  "2",
+  "1",
+  "2",
+  "1",
+  "1",
+  "1",
+  "2",
+  "2",
+  "2",
+  "2",
+  "2",
+  "2",
+  "2",
+  "1",
+  "1",
+  "2",
+  "2",
+  "2",
+  "2",
+  "2",
+  "2",
+  "2",
+  "2",
+  "2",
+  "2",
+  "1",
+  "1",
+  "2",
+  "1",
+  "2",
+  "1",
+  "1",
+  "2",
+  "1",
+  "2",
+]
+const chunkSize = 6;
+let _arrArr = ref([])
 
-<script>
-export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
+for (let i = 0; i < aaa.length; i += chunkSize) {
+  const chunk = aaa.slice(i, i + chunkSize);
+  _arrArr.value.push(chunk)
+}
+
+let matrix = ref([]);
+let rows = ref(6)
+let rowsIndex = ref(0)
+let columnIndex = ref(0);
+let round = ref(0);
+let columns = 30
+
+for (let i = 0; i < rows.value; i++) {
+  matrix.value[i] = [];
+  for (let j = 0; j < columns; j++) {
+    matrix.value[i][j] = _arrArr.value[j]?.[i]
+    // matrix.value[i][j] = i + '' + j
   }
 }
-</script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+// isPlay = false
+// gia tri luu lai: rowIndex : 0 , columnIndex : 0
+// create rows and columns
+// rows = 6
+// columns = 500
+
+// play game
+// round steps ex: round 6 value: 1
+// check value current round and pre-round
+// ===: rowIndex += 1 , columnIndex = preColumnIndex
+// >>> if rowIndex === 6 , coloumnIndex = columnIndex +1
+// >>> else {
+//>>> if value of columnIndex === value of columnIndex - 1
+// >>>  coloumnIndex = columnIndex +1
+// >>>
+// }
+// !==: rowIndex = 0 , columnIndex = rows[0].length -1
+//
+//
+// if pre-round is 1 => rows[][indexPreRound]
+
+</script>
+<style lang="scss">
+
+.red {
+  border: solid red 1px
 }
 </style>
