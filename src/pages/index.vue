@@ -1,7 +1,7 @@
 <template>
   <div class="h-full w-full flex items-center justify-center">
     <div class="container-page">
-      <div class="text-xl ">Baccarat scoreboard views project using: Vuejs3, VueRouter, Pinia, E2E Playwright test</div>
+      <div class="text-xl ">Baccarat scoreboard project using: Vuejs3, VueRouter, Pinia, Tailwind CSS, E2E Playwright test.</div>
       <div class="flex p-3 items-center justify-center">
         <router-link
             :to="'/score-board'"
