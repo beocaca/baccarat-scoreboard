@@ -25,7 +25,7 @@
         <router-link
             :to="'/'"
             class="px-6 py-2 text-sm font-semibold text-blue-800 bg-blue-100 rounded-lg"
-        >Go to Test page
+        >Go to scoreboard
         </router-link>
       </div>
     </div>
