@@ -1,48 +1,47 @@
-import {defineStore, acceptHMRUpdate} from 'pinia'
+import {defineStore} from 'pinia'
 import {ref} from 'vue'
 
 export const useScoresStorePin = defineStore('scores', () => {
     const state = ref({
-        inputSample: ["1", "2", "2", "1", "2", "1", "1", "1", "2", "2", "2", "2", "2", "2", "2", "1", "1", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "1", "1", "2", "1", "2", "1", "1", "2", "1", "2",],
+        inputSample: ["1", "1", "2", "2", "1", "2", "1", "1", "1", "2", "2", "2", "2", "2", "2", "2", "1", "1", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "1", "1", "2", "1", "2", "1", "1", "2", "1", "2",],
         rowsLength: 6,
         columnLength: 30,
         rows: [],
-
         currentRowIndex: 0,
         currentColumnIndex: 0,
         currentType: undefined,
-    })
-    const initRows = () => {
-        let numRows = 6
-        let numCols = 30
-        let rows1 = []
-        for (let i = 0; i < numRows; i++) {
-            let row = []
-            for (let j = 0; j < numCols; j++) {
-                row.push(0)
-            }
-            rows1.push(row)
-        }
-        state.value.rows = rows1;
-    }
 
-    const addScoreInput = (_value) => {
-        state.value.inputSample.push(_value)
+        infoType: [{
+            colorClass: 'bg-red-700', tittle: 'BANKER', value: '1'
+        }, {
+            colorClass: 'bg-blue-700', tittle: 'PLAYER', value: '2'
+        }, {
+            colorClass: 'bg-green-700', tittle: 'TIE', value: '3'
+        }],
+
+        rowsBasic: [],
+        currentRowIndexBasic: 0,
+        currentColumnIndexBasic: 0,
+        currentInputLengthBasic: 0
+    })
+
+    const _initTotalRows = (_key) => {
+        let _rows = []
+        for (let i = 0; i < state.value.rowsLength; i++) {
+            _rows[i] = [];
+            for (let j = 0; j < state.value.columnLength; j++) {
+                _rows[i][j] = 0
+            }
+        }
+        state.value[_key] = _rows
     }
-    const resetScores = (_value) => {
-        savePoint(0, 0, undefined)
-        initRows()
-        state.value.inputSample = []
+    const initRows = () => {
+        _initTotalRows('rows')
     }
-    const addType = (_type) => {
-        let point = getPointIndex(_type)
-        addScore(_type, point.rowIndex, point.columnIndex)
-        savePoint(point.rowIndex, point.columnIndex, _type)
-    }
-    const savePoint = (rowIndex, columnIndex, _type) => {
-        state.value.currentRowIndex = rowIndex
-        state.value.currentColumnIndex = columnIndex
-        state.value.currentType = _type
+    const initData = () => {
+        for (let i = 0; i < state.value.inputSample.length; i++) {
+            addType(state.value.inputSample[i])
+        }
     }
     const getPointIndex = (_type) => {
         window.console.log(_type, state.value.currentType)
@@ -74,7 +73,6 @@ export const useScoresStorePin = defineStore('scores', () => {
             const isNextRow2PreColumnSameValue = valueNextRow2 === state.value.currentType
             return isNextRow2PreColumnSameValue
         }
-        // eslint-disabled
         if (state.value.currentColumnIndex === 0 && state.value.currentType === undefined) {
             rowIndex = 0
             columnIndex = 0
@@ -110,18 +108,76 @@ export const useScoresStorePin = defineStore('scores', () => {
             rowIndex, columnIndex,
         }
     }
+    const addType = (_type) => {
+        let point = getPointIndex(_type)
+        addScore(_type, point.rowIndex, point.columnIndex)
+        savePoint(point.rowIndex, point.columnIndex, _type)
+    }
+    const savePoint = (rowIndex, columnIndex, _type) => {
+        state.value.currentRowIndex = rowIndex
+        state.value.currentColumnIndex = columnIndex
+        state.value.currentType = _type
+    }
+
+
+    const initBasicRows = () => {
+        _initTotalRows('rowsBasic')
+    }
+    const initDataBasic = () => {
+        console.error('xxxxx')
+        for (let i = 0; i < state.value.inputSample.length; i++) {
+            addTypeBasic(state.value.inputSample[i], i)
+        }
+
+        // let _arrArr = []
+        // for (let i = 0; i < state.value.inputSample.length; i += state.value.rowsLength) {
+        //     const chunk = (state.value.inputSample || []).slice(i, i + state.value.rowsLength);
+        //     _arrArr.push(chunk)
+        // }
+        // for (let i = 0; i < state.value.rowsLength; i++) {
+        //     state.value.rowsBasic[i] = [];
+        //     for (let j = 0; j < state.value.columnLength; j++) {
+        //         state.value.rowsBasic[i][j] = _arrArr[j]?.[i]
+        //     }
+        // }
+    }
+    const getPointIndexBasic = (_index) => {
+        let rowIndex
+        let columnIndex
+        rowIndex = (_index % 6)
+        columnIndex = Math.trunc(_index / 6)
+        return {
+            rowIndex, columnIndex,
+        }
+    }
+    const addTypeBasic = (_type, _index) => {
+        let point = getPointIndexBasic(_index)
+        state.value.rowsBasic[point.rowIndex][point.columnIndex] = _type
+        state.value.currentRowIndexBasic = point.rowIndex
+        state.value.currentColumnIndexBasic = point.columnIndex
+        state.value.currentInputLengthBasic += 1
+    }
+
+    const addScoreInput = (_type) => {
+        addType(_type)
+        addTypeBasic(_type, state.value.currentInputLengthBasic)
+        state.value.inputSample.push(_type)
+    }
+    const resetScores = () => {
+        savePoint(0, 0, undefined)
+        state.value.currentRowIndexBasic = 0
+        state.value.currentColumnIndexBasic = 0
+        state.value.currentInputLengthBasic = 0
+        initBasicRows()
+        initRows()
+        state.value.inputSample = []
+    }
 
     const addScore = (_type, rowIndex, columnIndex) => {
         state.value.rows[rowIndex][columnIndex] = _type
     }
 
-    const initData = () => {
-        for (let i = 0; i < state.value.inputSample.length; i++) {
-            addType(state.value.inputSample[i])
-        }
-    }
-
     return {
-        state, addScore, resetScores, initRows, addScoreInput, initData, addType,
+        state, resetScores, addScoreInput, initRows, initData, initBasicRows, initDataBasic
     }
 })

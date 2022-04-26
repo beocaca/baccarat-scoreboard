@@ -2,7 +2,7 @@ import {ref} from "vue";
 
 export const useBasicBoard = (state) => {
     const matrix = ref([])
-    const initDataToBasicMatrix = () => {
+    const initDataToBasicMatrix1 = () => {
         let _arrArr = []
         for (let i = 0; i < state.value.inputSample.length; i += state.value.rowsLength) {
             const chunk = (state.value.inputSample || []).slice(i, i + state.value.rowsLength);
@@ -16,7 +16,7 @@ export const useBasicBoard = (state) => {
         }
     }
     return {
-        matrix, initDataToBasicMatrix
+        matrix, initDataToBasicMatrix1
     }
 }
 

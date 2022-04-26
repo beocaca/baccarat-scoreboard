@@ -1,27 +1,25 @@
 <template>
-  <div>
-    <table>
-      <tr v-for="(row, rowIndex) in state.rows"
-          class="flex"
-          :key="rowIndex">
-        <td
-            class="w-10 h-10 flex items-center justify-center"
-            v-for="(column, columnIndex) in row"
-            :key="columnIndex"
-        >
-          <div class="w-9 h-9 rounded flex items-center justify-center bg-neutral-300">
-            <div class="w-8 h-8 rounded-full flex items-center justify-center text-white"
-                 :class="{
+  <table>
+    <tr v-for="(row, rowIndex) in state.rows"
+        class="flex"
+        :key="rowIndex">
+      <td
+          class="w-10 h-10 flex items-center justify-center"
+          v-for="(column, columnIndex) in row"
+          :key="columnIndex"
+      >
+        <div class="w-9 h-9 rounded flex items-center justify-center bg-neutral-300">
+          <div class="w-8 h-8 rounded-full flex items-center justify-center text-white"
+               :class="{
                  'border-green-cell':column === '3',
                  'border-blue-cell':column === '2',
                  'border-red-cell':column === '1'}"
-            >
-            </div>
+          >
           </div>
-        </td>
-      </tr>
-    </table>
-  </div>
+        </div>
+      </td>
+    </tr>
+  </table>
 </template>
 
 <script setup>

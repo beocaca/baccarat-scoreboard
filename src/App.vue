@@ -22,7 +22,6 @@ import SpecialTable from './components/SpecialTable'
 import BasicTable from './components/BasicTable'
 import InfoTable from './components/InfoTable'
 import ControlScores from './components/ControlScores'
-import TestPage from "@/components/TestPage";
 </script>
 
 <style lang="scss">

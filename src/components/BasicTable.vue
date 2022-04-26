@@ -1,36 +1,41 @@
 <template>
-  <table>
-    <tr v-for="(row, rowIndex) in basicMatrix"
-        class="flex"
-        :key="rowIndex">
-      <td
-          class="w-10 h-10 flex items-center justify-center"
-          v-for="(column, columnIndex) in row"
-          :key="columnIndex"
-      >
-        <div class="w-9 h-9 rounded flex items-center justify-center bg-neutral-300">
-          <div class="w-8 h-8 rounded-full flex items-center justify-center text-white"
-               :class="{'bg-blue-700':column === '2',
+  <div>
+    <table>
+      <tr v-for="(row, rowIndex) in state.rowsBasic"
+          class="flex"
+          :key="rowIndex">
+        <td
+            class="w-10 h-10 flex items-center justify-center"
+            v-for="(column, columnIndex) in row"
+            :key="columnIndex"
+        >
+          <div class="w-9 h-9 rounded flex items-center justify-center bg-neutral-300">
+            <div class="w-8 h-8 rounded-full flex items-center justify-center text-white"
+                 :class="{'bg-blue-700':column === '2',
                  'bg-green-700':column === '3',
                  'bg-red-600':column === '1'}">
-            {{ column === 0 ? '' : column }}
+              {{ column === 0 ? '' : column }}
+            </div>
           </div>
-        </div>
-      </td>
-    </tr>
-  </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+
 </template>
 
 <script setup>
-import {watchEffect} from "vue";
-import {useBasicBoard} from "@/composable/use-basic-board";
+import {onMounted} from "vue";
 import {useScoresStorePin} from "@/store/scores";
 import {storeToRefs} from "pinia/dist/pinia";
 
 const useScoresStore = useScoresStorePin()
 const {state} = storeToRefs(useScoresStore)
-const {matrix: basicMatrix, initDataToBasicMatrix} = useBasicBoard(state)
-watchEffect(() => initDataToBasicMatrix())
+
+onMounted(() => {
+  useScoresStore.initBasicRows()
+  useScoresStore.initDataBasic()
+})
 </script>
 
 <style scoped>

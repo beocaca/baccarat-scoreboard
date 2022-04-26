@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="(item,ind) in _arr"
+    <div v-for="(item,ind) in state.infoType"
          :key="ind"
          class="bg-neutral-300 font-bold flex items-center p-1 px-3 rounded justify-between mb-1">
       <div class="flex items-center">
@@ -27,24 +27,10 @@
 <script setup>
 import {useScoresStorePin} from "@/store/scores";
 import {storeToRefs} from 'pinia'
+
 const useScoresStore = useScoresStorePin()
 const {state} = storeToRefs(useScoresStore)
-let _arr = [
-  {
-    colorClass: 'bg-red-600',
-    tittle: 'BANKER',
-    value: '1'
-  },
-  {
-    colorClass: 'bg-blue-700',
-    tittle: 'PLAYER',
-    value: '2'
-  }, {
-    colorClass: 'bg-green-700',
-    tittle: 'TIE',
-    value: '3'
-  }
-]
+
 let getTotal = (_value) => {
   return (state.value.inputSample || []).filter(e => e === _value).length
 }
