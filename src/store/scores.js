@@ -16,11 +16,11 @@ export const useScores = defineStore('scores', () => {
         currentInputLengthBasic: 0,
         infoType: {
             banker: {
-                colorClass: 'bg-red-700', tittle: 'BANKER', value: 'BANKER WIN'
+                colorClass: 'bg-red-700', title: 'BANKER', value: 'BANKER WIN'
             }, player: {
-                colorClass: 'bg-blue-700', tittle: 'PLAYER', value: 'PLAYER WIN'
+                colorClass: 'bg-blue-700', title: 'PLAYER', value: 'PLAYER WIN'
             }, tie: {
-                colorClass: 'bg-green-700', tittle: 'TIE', value: 'TIE'
+                colorClass: 'bg-green-700', title: 'TIE', value: 'TIE'
             }
 
         },

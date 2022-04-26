@@ -1,13 +1,14 @@
 <template>
   <div class="flex justify-center">
     <button type="button"
+            :data-test="'btn-'+item.title"
             v-for="(item,index) in Object.values(state.infoType)"
             @click="useScoresStore.addScoreInput(item.value)"
             :class="item.colorClass"
             class="focus:outline-none text-white
               hover:bg-red-00 focus:ring-2 focus:ring-neutral-300
              font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">
-      {{ item.tittle }} WIN
+      {{ item.title }} WIN
     </button>
     <button @click="useScoresStore.resetScores"
             type="button"

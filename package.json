@@ -2,7 +2,9 @@
   "private": true,
   "scripts": {
     "dev": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "test": "playwright test --forbid-only tests/e2e/score-board.spec.mjs",
+    "t": "playwright test --debug tests/e2e/score-board.spec.mjs"
   },
   "dependencies": {
     "core-js": "^3.8.3",

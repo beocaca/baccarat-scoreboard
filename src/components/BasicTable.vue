@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table>
+    <table data-test="basic-table">
       <tr v-for="(row, rowIndex) in state.rowsBasic"
           class="flex"
           :key="rowIndex">

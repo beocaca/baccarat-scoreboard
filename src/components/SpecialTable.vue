@@ -1,5 +1,5 @@
 <template>
-  <table>
+  <table data-test="special-table">
     <tr v-for="(row, rowIndex) in state.rows"
         class="flex"
         :key="rowIndex">
@@ -9,7 +9,9 @@
           :key="columnIndex"
       >
         <div class="w-9 h-9 rounded flex items-center justify-center bg-neutral-300">
-          <div class="w-8 h-8 rounded-full flex items-center justify-center text-white"
+          <template v-if="column===0"></template>
+          <div v-else
+               class="w-8 h-8 rounded-full flex items-center justify-center text-white"
                :class="{
                  'border-green-cell':column === state.infoType.tie.value,
                  'border-blue-cell':column === state.infoType.player.value,
