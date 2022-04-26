@@ -109,7 +109,6 @@ export default {
         rows.push(row)
       }
       this.rows = rows
-      this.maxRows = numRows
     },
     addType(_type) {
       let point = this.getPointIndex(_type)

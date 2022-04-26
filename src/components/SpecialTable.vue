@@ -1,9 +1,5 @@
 <template>
   <div>
-    {{ state }}
-    <div>currentRowIndex {{ state.currentRowIndex }}</div>
-    <div>currentColumnIndex {{ state.currentColumnIndex }}</div>
-    <div>currentType {{ state.currentType }}</div>
     <table>
       <tr v-for="(row, rowIndex) in state.rows"
           class="flex"
@@ -20,7 +16,6 @@
                  'border-blue-cell':column === '2',
                  'border-red-cell':column === '1'}"
             >
-              {{ column }}
             </div>
           </div>
         </td>
@@ -31,21 +26,16 @@
 
 <script setup>
 
-import {useSpecialBoard} from "@/composable/use-special-board";
 import {useScoresStorePin,} from "@/store/scores";
 import {storeToRefs} from "pinia/dist/pinia";
-import {onMounted, ref, watch, watchEffect} from "vue";
+import {onMounted} from "vue";
 
 const useScoresStore = useScoresStorePin()
 const {state} = storeToRefs(useScoresStore)
 
-
 onMounted(() => {
   useScoresStore.initRows()
-  // useScoresStore.initData()
-  setTimeout(() => {
-    useScoresStore.initData()
-  }, 5000)
+  useScoresStore.initData()
 })
 
 </script>

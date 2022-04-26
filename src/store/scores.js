@@ -3,7 +3,7 @@ import {ref} from 'vue'
 
 export const useScoresStorePin = defineStore('scores', () => {
     const state = ref({
-        inputSample: ["2","1", "2", "2", "1", "2", "1", "1", "1", "2", "2", "2", "2", "2", "2", "2", "1", "1", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "1", "1", "2", "1", "2", "1", "1", "2", "1", "2",],
+        inputSample: ["1", "2", "2", "1", "2", "1", "1", "1", "2", "2", "2", "2", "2", "2", "2", "1", "1", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "1", "1", "2", "1", "2", "1", "1", "2", "1", "2",],
         rowsLength: 6,
         columnLength: 30,
         rows: [],
@@ -11,7 +11,6 @@ export const useScoresStorePin = defineStore('scores', () => {
         currentRowIndex: 0,
         currentColumnIndex: 0,
         currentType: undefined,
-
     })
     const initRows = () => {
         let numRows = 6
@@ -31,13 +30,14 @@ export const useScoresStorePin = defineStore('scores', () => {
         state.value.inputSample.push(_value)
     }
     const resetScores = (_value) => {
+        savePoint(0, 0, undefined)
+        initRows()
         state.value.inputSample = []
     }
     const addType = (_type) => {
         let point = getPointIndex(_type)
         addScore(_type, point.rowIndex, point.columnIndex)
         savePoint(point.rowIndex, point.columnIndex, _type)
-        addScoreInput(_type)
     }
     const savePoint = (rowIndex, columnIndex, _type) => {
         state.value.currentRowIndex = rowIndex
@@ -46,8 +46,7 @@ export const useScoresStorePin = defineStore('scores', () => {
     }
     const getPointIndex = (_type) => {
         window.console.log(_type, state.value.currentType)
-        let rowIndex = state.value.currentRowIndex,
-            columnIndex = state.value.currentColumnIndex
+        let rowIndex = state.value.currentRowIndex, columnIndex = state.value.currentColumnIndex
         let isNextRowValue = () => {
             let nextRow = state.value.rows[rowIndex + 1]
             if (!nextRow) {
@@ -108,20 +107,12 @@ export const useScoresStorePin = defineStore('scores', () => {
             columnIndex = state.value.rows[0].filter(e => e !== 0).length
         }
         return {
-            rowIndex,
-            columnIndex,
+            rowIndex, columnIndex,
         }
     }
 
     const addScore = (_type, rowIndex, columnIndex) => {
-        try {
-            let _rows = state.value.rows
-            // state.value.rows[rowIndex][columnIndex] = _type
-            // state.value.rows = [..._rows]
-
-        }catch (e) {
-            console.error('3333333333',e.message)
-        }
+        state.value.rows[rowIndex][columnIndex] = _type
     }
 
     const initData = () => {

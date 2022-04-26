@@ -1,9 +1,8 @@
 <template>
   <div class="flex justify-center">
-    {{state}}
     <button type="button"
             v-for="(item,index) in _arr"
-            @click="useScoresStore.addType(item.value)"
+            @click="addBtn(item.value)"
             :class="item.colorClass"
             class="focus:outline-none text-white
               hover:bg-red-00 focus:ring-4 focus:ring-neutral-300
@@ -24,6 +23,10 @@ import {storeToRefs} from "pinia/dist/pinia";
 
 const useScoresStore = useScoresStorePin()
 const {state} = storeToRefs(useScoresStore)
+let addBtn = (_value) => {
+  useScoresStore.addType(_value)
+  useScoresStore.addScoreInput(_value)
+}
 let _arr = [
   {
     colorClass: 'bg-red-600',

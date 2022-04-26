@@ -1,6 +1,5 @@
 <template>
-  <div class="bg-fuchsia-900 h-screen red">
-    <TestPage></TestPage>
+  <div class="bg-fuchsia-900 h-screen">
     <div class="container-page">
       <div class="p-5 flex justify-center">
         <SpecialTable></SpecialTable>
@@ -31,7 +30,6 @@ import TestPage from "@/components/TestPage";
 @tailwind components;
 @tailwind utilities;
 .container-page {
-  max-width: 1300px;
   margin: 0 auto;
 }
 
