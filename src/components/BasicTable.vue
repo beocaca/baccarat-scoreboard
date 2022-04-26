@@ -11,10 +11,14 @@
         >
           <div class="w-9 h-9 rounded flex items-center justify-center bg-neutral-300">
             <div class="w-8 h-8 rounded-full flex items-center justify-center text-white"
-                 :class="{'bg-blue-700':column === '2',
-                 'bg-green-700':column === '3',
-                 'bg-red-700':column === '1'}">
-              {{ column === 0 ? '' : column }}
+                 :class="{
+                 'bg-red-700':column === state.infoType.banker.value,
+                 'bg-blue-700':column === state.infoType.player.value,
+                 'bg-green-700':column === state.infoType.tie.value,
+            }">
+              {{
+                column === 0 ? '' : column.charAt(0)
+              }}
             </div>
           </div>
         </td>

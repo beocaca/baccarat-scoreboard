@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="(item,ind) in state.infoType"
+    <div v-for="(item,ind) in Object.values(state.infoType)"
          :key="ind"
          class="bg-neutral-300 font-bold flex items-center p-1 px-3 rounded justify-between mb-1">
       <div class="flex items-center">

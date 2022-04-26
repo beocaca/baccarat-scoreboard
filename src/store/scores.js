@@ -3,22 +3,23 @@ import {ref} from 'vue'
 
 export const useScoresStorePin = defineStore('scores', () => {
     const state = ref({
-        inputSample: ["1", "1", "2", "2", "1", "2", "1", "1", "1", "2", "2", "2", "2", "2", "2", "2", "1", "1", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "1", "1", "2", "1", "2", "1", "1", "2", "1", "2",],
+        inputSample: ['PLAYER WIN', 'PLAYER WIN', 'PLAYER WIN', 'PLAYER WIN', 'PLAYER WIN', 'PLAYER WIN', 'TIE', 'TIE', 'BANKER WIN', 'BANKER WIN', 'BANKER WIN', 'PLAYER WIN', 'PLAYER WIN', 'PLAYER WIN', 'BANKER WIN', 'TIE',],
         rowsLength: 6,
         columnLength: 30,
         rows: [],
         currentRowIndex: 0,
         currentColumnIndex: 0,
         currentType: undefined,
+        infoType: {
+            banker: {
+                colorClass: 'bg-red-700', tittle: 'BANKER', value: 'BANKER WIN'
+            }, player: {
+                colorClass: 'bg-blue-700', tittle: 'PLAYER', value: 'PLAYER WIN'
+            }, tie: {
+                colorClass: 'bg-green-700', tittle: 'TIE', value: 'TIE'
+            }
 
-        infoType: [{
-            colorClass: 'bg-red-700', tittle: 'BANKER', value: '1'
-        }, {
-            colorClass: 'bg-blue-700', tittle: 'PLAYER', value: '2'
-        }, {
-            colorClass: 'bg-green-700', tittle: 'TIE', value: '3'
-        }],
-
+        },
         rowsBasic: [],
         currentRowIndexBasic: 0,
         currentColumnIndexBasic: 0,

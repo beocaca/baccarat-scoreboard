@@ -11,9 +11,9 @@
         <div class="w-9 h-9 rounded flex items-center justify-center bg-neutral-300">
           <div class="w-8 h-8 rounded-full flex items-center justify-center text-white"
                :class="{
-                 'border-green-cell':column === '3',
-                 'border-blue-cell':column === '2',
-                 'border-red-cell':column === '1'}"
+                 'border-green-cell':column === state.infoType.tie.value,
+                 'border-blue-cell':column === state.infoType.player.value,
+                 'border-red-cell':column === state.infoType.banker.value}"
           >
           </div>
         </div>

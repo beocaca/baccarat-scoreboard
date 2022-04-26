@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-center">
     <button type="button"
-            v-for="(item,index) in state.infoType"
+            v-for="(item,index) in Object.values(state.infoType)"
             @click="useScoresStore.addScoreInput(item.value)"
             :class="item.colorClass"
             class="focus:outline-none text-white
