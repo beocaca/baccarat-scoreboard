@@ -25,10 +25,10 @@
 </template>
 
 <script setup>
-import {useScoresStorePin} from "@/store/scores";
+import {useScores} from "@/store/scores";
 import {storeToRefs} from 'pinia'
 
-const useScoresStore = useScoresStorePin()
+const useScoresStore = useScores()
 const {state} = storeToRefs(useScoresStore)
 
 let getTotal = (_value) => {

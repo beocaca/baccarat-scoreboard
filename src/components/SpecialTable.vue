@@ -24,11 +24,11 @@
 
 <script setup>
 
-import {useScoresStorePin,} from "@/store/scores";
+import {useScores,} from "@/store/scores";
 import {storeToRefs} from "pinia/dist/pinia";
 import {onMounted} from "vue";
 
-const useScoresStore = useScoresStorePin()
+const useScoresStore = useScores()
 const {state} = storeToRefs(useScoresStore)
 
 onMounted(() => {

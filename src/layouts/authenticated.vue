@@ -1,13 +1,12 @@
 <template>
   <div>
+    <header/>
     <slot></slot>
+    <footer/>
   </div>
 </template>
 
 <script>
-export default {
-  name: "authentication"
-}
 </script>
 
 <style scoped>

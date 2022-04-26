@@ -1,15 +1,19 @@
 import {defineStore} from 'pinia'
 import {ref} from 'vue'
 
-export const useScoresStorePin = defineStore('scores', () => {
+export const useScores = defineStore('scores', () => {
     const state = ref({
         inputSample: ['PLAYER WIN', 'PLAYER WIN', 'PLAYER WIN', 'PLAYER WIN', 'PLAYER WIN', 'PLAYER WIN', 'TIE', 'TIE', 'BANKER WIN', 'BANKER WIN', 'BANKER WIN', 'PLAYER WIN', 'PLAYER WIN', 'PLAYER WIN', 'BANKER WIN', 'TIE',],
         rowsLength: 6,
-        columnLength: 30,
+        columnLength: 18,
         rows: [],
         currentRowIndex: 0,
         currentColumnIndex: 0,
         currentType: undefined,
+        rowsBasic: [],
+        currentRowIndexBasic: 0,
+        currentColumnIndexBasic: 0,
+        currentInputLengthBasic: 0,
         infoType: {
             banker: {
                 colorClass: 'bg-red-700', tittle: 'BANKER', value: 'BANKER WIN'
@@ -20,10 +24,6 @@ export const useScoresStorePin = defineStore('scores', () => {
             }
 
         },
-        rowsBasic: [],
-        currentRowIndexBasic: 0,
-        currentColumnIndexBasic: 0,
-        currentInputLengthBasic: 0
     })
 
     const _initTotalRows = (_key) => {
