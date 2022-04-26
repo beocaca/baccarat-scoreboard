@@ -26,7 +26,6 @@
             </svg>
           </div>
           <div class="text-2xl flex flex-col pb-4">
-            <small>Test Project</small>
             <span class="text-3xl font-bold">Baccarat scoreboards !</span>
           </div>
           <div class="pb-4">
