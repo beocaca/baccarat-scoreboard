@@ -7,7 +7,7 @@
       <div class="p-5 flex justify-center">
         <BasicTable></BasicTable>
         <div class="ml-8"
-             style="width: 20rem;">
+             style="width: 21rem;">
           <InfoTable></InfoTable>
         </div>
       </div>
