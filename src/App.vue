@@ -16,7 +16,6 @@
   </div>
 </template>
 
-
 <script setup>
 import SpecialTable from './components/SpecialTable'
 import BasicTable from './components/BasicTable'
@@ -32,7 +31,4 @@ import ControlScores from './components/ControlScores'
   margin: 0 auto;
 }
 
-.red {
-  border: solid red 1px;
-}
 </style>

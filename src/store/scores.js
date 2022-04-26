@@ -35,6 +35,20 @@ export const useScoresStorePin = defineStore('scores', () => {
         }
         state.value[_key] = _rows
     }
+    const addScoreInput = (_type) => {
+        addType(_type)
+        addTypeBasic(_type, state.value.currentInputLengthBasic)
+        state.value.inputSample.push(_type)
+    }
+    const resetScores = () => {
+        savePoint(0, 0, undefined)
+        savePointBasic(0, 0, 0)
+        initRowsBasic()
+        initRows()
+        state.value.inputSample = []
+    }
+
+
     const initRows = () => {
         _initTotalRows('rows')
     }
@@ -44,7 +58,6 @@ export const useScoresStorePin = defineStore('scores', () => {
         }
     }
     const getPointIndex = (_type) => {
-        window.console.log(_type, state.value.currentType)
         let rowIndex = state.value.currentRowIndex, columnIndex = state.value.currentColumnIndex
         let isNextRowValue = () => {
             let nextRow = state.value.rows[rowIndex + 1]
@@ -76,11 +89,8 @@ export const useScoresStorePin = defineStore('scores', () => {
         if (state.value.currentColumnIndex === 0 && state.value.currentType === undefined) {
             rowIndex = 0
             columnIndex = 0
-            console.warn('DÒNG ĐẦU TIÊN 0:0')
         } else if (_type === state.value.currentType) {
             if (isNextRowValue()) {
-                // dòng tiiếp theo có giá trị
-                console.error('1  DÒNG TIẾP THEO CÓ GIÁ TRỊ ( value !== 0) ')
                 rowIndex = state.value.currentRowIndex
                 columnIndex = state.value.currentColumnIndex + 1
             } else if (isNextRowValue2()) {
@@ -90,17 +100,13 @@ export const useScoresStorePin = defineStore('scores', () => {
                 rowIndex = state.value.currentRowIndex
                 columnIndex = state.value.currentColumnIndex + 1
             } else if (state.value.currentRowIndex === state.value.rows.length - 1) {
-                // chạm đáy
-                console.error('2 CHẠM ĐÁY')
                 rowIndex = state.value.currentRowIndex
                 columnIndex = state.value.currentColumnIndex + 1
             } else {
-                console.error('3 GIÁ TRỊ GIỐNG DÒNG TIẾP THEO ')
                 rowIndex = state.value.currentRowIndex + 1
                 columnIndex = state.value.currentColumnIndex
             }
         } else if (_type !== state.value.currentType) {
-            console.error('GIÁ TRỊ KHÁC CỘT TIẾP THEO, TỔNG GIÁ TRỊ CỦA DÒNG ĐẦU  ')
             rowIndex = 0
             columnIndex = state.value.rows[0].filter(e => e !== 0).length
         }
@@ -110,7 +116,7 @@ export const useScoresStorePin = defineStore('scores', () => {
     }
     const addType = (_type) => {
         let point = getPointIndex(_type)
-        addScore(_type, point.rowIndex, point.columnIndex)
+        state.value.rows[point.rowIndex][point.columnIndex] = _type
         savePoint(point.rowIndex, point.columnIndex, _type)
     }
     const savePoint = (rowIndex, columnIndex, _type) => {
@@ -120,26 +126,13 @@ export const useScoresStorePin = defineStore('scores', () => {
     }
 
 
-    const initBasicRows = () => {
+    const initRowsBasic = () => {
         _initTotalRows('rowsBasic')
     }
     const initDataBasic = () => {
-        console.error('xxxxx')
         for (let i = 0; i < state.value.inputSample.length; i++) {
             addTypeBasic(state.value.inputSample[i], i)
         }
-
-        // let _arrArr = []
-        // for (let i = 0; i < state.value.inputSample.length; i += state.value.rowsLength) {
-        //     const chunk = (state.value.inputSample || []).slice(i, i + state.value.rowsLength);
-        //     _arrArr.push(chunk)
-        // }
-        // for (let i = 0; i < state.value.rowsLength; i++) {
-        //     state.value.rowsBasic[i] = [];
-        //     for (let j = 0; j < state.value.columnLength; j++) {
-        //         state.value.rowsBasic[i][j] = _arrArr[j]?.[i]
-        //     }
-        // }
     }
     const getPointIndexBasic = (_index) => {
         let rowIndex
@@ -153,31 +146,19 @@ export const useScoresStorePin = defineStore('scores', () => {
     const addTypeBasic = (_type, _index) => {
         let point = getPointIndexBasic(_index)
         state.value.rowsBasic[point.rowIndex][point.columnIndex] = _type
-        state.value.currentRowIndexBasic = point.rowIndex
-        state.value.currentColumnIndexBasic = point.columnIndex
-        state.value.currentInputLengthBasic += 1
+        savePointBasic(point.rowIndex, point.columnIndex, false)
     }
-
-    const addScoreInput = (_type) => {
-        addType(_type)
-        addTypeBasic(_type, state.value.currentInputLengthBasic)
-        state.value.inputSample.push(_type)
-    }
-    const resetScores = () => {
-        savePoint(0, 0, undefined)
-        state.value.currentRowIndexBasic = 0
-        state.value.currentColumnIndexBasic = 0
-        state.value.currentInputLengthBasic = 0
-        initBasicRows()
-        initRows()
-        state.value.inputSample = []
-    }
-
-    const addScore = (_type, rowIndex, columnIndex) => {
-        state.value.rows[rowIndex][columnIndex] = _type
+    const savePointBasic = (rowIndex, columnIndex, currentInputLengthBasic) => {
+        state.value.currentRowIndexBasic = rowIndex
+        state.value.currentColumnIndexBasic = columnIndex
+        if (typeof currentInputLengthBasic === "boolean" && currentInputLengthBasic === false) {
+            state.value.currentInputLengthBasic += 1
+        } else {
+            state.value.currentInputLengthBasic = 0
+        }
     }
 
     return {
-        state, resetScores, addScoreInput, initRows, initData, initBasicRows, initDataBasic
+        state, resetScores, addScoreInput, initRows, initData, initRowsBasic, initDataBasic
     }
 })

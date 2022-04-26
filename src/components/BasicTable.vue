@@ -13,7 +13,7 @@
             <div class="w-8 h-8 rounded-full flex items-center justify-center text-white"
                  :class="{'bg-blue-700':column === '2',
                  'bg-green-700':column === '3',
-                 'bg-red-600':column === '1'}">
+                 'bg-red-700':column === '1'}">
               {{ column === 0 ? '' : column }}
             </div>
           </div>
@@ -33,7 +33,7 @@ const useScoresStore = useScoresStorePin()
 const {state} = storeToRefs(useScoresStore)
 
 onMounted(() => {
-  useScoresStore.initBasicRows()
+  useScoresStore.initRowsBasic()
   useScoresStore.initDataBasic()
 })
 </script>
