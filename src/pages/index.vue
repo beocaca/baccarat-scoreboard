@@ -30,7 +30,7 @@
             <span class="text-3xl font-bold">Baccarat scoreboards !</span>
           </div>
           <div class="pb-4">
-            <div class="text-xl ">Baccarat scoreboard views project using: Vuejs3, VueRouter, Pinia, Tailwind CSS, E2E
+            <div class="text-xl ">Baccarat scoreboards view project using: Vuejs3, VueRouter, Pinia, Tailwind CSS, E2E
               Playwright
               test.
             </div>
@@ -41,7 +41,7 @@
             <router-link
                 :to="'/score-board'"
                 class="px-6 py-3 text-sm font-semibold text-blue-800 bg-blue-100 rounded-lg"
-            >Go to scoreboard
+            >Go to scoreboards
             </router-link>
           </div>
         </div>

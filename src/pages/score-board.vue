@@ -22,7 +22,7 @@ import BasicTable from '../components/BasicTable'
 import InfoTable from '../components/InfoTable'
 import ControlScores from '../components/ControlScores'
 
-document.title = 'Baccarat Scoreboard';
+document.title = 'Baccarat scoreboards';
 
 </script>
 

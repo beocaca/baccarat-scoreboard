@@ -1,6 +1,6 @@
 import {test, expect} from '@playwright/test';
 
-test.describe.parallel('scoreboard test', () => {
+test.describe.parallel('scoreboards test', () => {
     test.beforeEach(async ({page}) => {
         await page.goto('http://localhost:8080/score-board/');
     })
@@ -219,11 +219,29 @@ test.describe.parallel('scoreboard test', () => {
         await expect(page.locator(`[data-test="special-table"] >> tr:nth-child(${6}) td:nth-child(${14}) div div`))
             .toHaveClass(/border-red-cell/)
 
-
         await expect(page.locator(`[data-test="title-BANKER"] .title`)).toHaveText('24')
         await expect(page.locator(`[data-test="title-PLAYER"] .title`)).toHaveText('15')
         await expect(page.locator(`[data-test="title-TIE"] .title`)).toHaveText('8')
         await expect(page.locator(`[data-test="title-TOTAL"] .title`)).toHaveText('47')
+
+
+        await page.locator(`[data-test="btn-RESET"]`).click()
+
+        for (let i = 1; i <= 18; i++) {
+            for (let j = 1; j <= 6; j++) {
+                await expect(page.locator(`[data-test="special-table"] >> tr:nth-child(${j}) td:nth-child(${i}) div`)).toBeEmpty()
+            }
+        }
+        for (let i = 1; i <= 18; i++) {
+            for (let j = 1; j <= 6; j++) {
+                await expect(page.locator(`[data-test="basic-table"] >> tr:nth-child(${j}) td:nth-child(${i}) div div`)).toBeEmpty()
+            }
+        }
+        await expect(page.locator(`[data-test="title-BANKER"] .title`)).toHaveText('0')
+        await expect(page.locator(`[data-test="title-PLAYER"] .title`)).toHaveText('0')
+        await expect(page.locator(`[data-test="title-TIE"] .title`)).toHaveText('0')
+        await expect(page.locator(`[data-test="title-TOTAL"] .title`)).toHaveText('0')
+        await page.pause()
         await context.close()
 
     })
