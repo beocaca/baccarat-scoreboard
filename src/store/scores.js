@@ -60,6 +60,15 @@ export const useScores = defineStore('scores', () => {
     }
     const getPointIndex = (_type) => {
         let rowIndex = state.value.currentRowIndex, columnIndex = state.value.currentColumnIndex
+        let isSamRowValue = () => {
+            let row = state.value.rows[0]
+            let value = row?.[columnIndex - 1]
+            if (!value) {
+                return false
+            }
+            let isHasValue = value === state.value.currentType
+            return isHasValue && state.value.currentRowIndex === 0
+        }
         let isPreColumnValue = () => {
             let row = state.value.rows[rowIndex]
             let value = row?.[columnIndex - 1]
@@ -82,7 +91,10 @@ export const useScores = defineStore('scores', () => {
             rowIndex = 0
             columnIndex = 0
         } else if (_type === state.value.currentType) {
-            if (isPreColumnValue()) {
+            if (isSamRowValue()) {
+                rowIndex = state.value.currentRowIndex
+                columnIndex = state.value.currentColumnIndex + 1
+            } else if (isPreColumnValue()) {
                 rowIndex = state.value.currentRowIndex
                 columnIndex = state.value.currentColumnIndex + 1
             } else if (isNextRowValue()) {
