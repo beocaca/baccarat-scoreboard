@@ -1,5 +1,5 @@
 <template>
-  <table data-test="special-table">
+  <table id="special-table" data-test="special-table">
     <tr v-for="(row, rowIndex) in state.rows"
         class="flex"
         :key="rowIndex">

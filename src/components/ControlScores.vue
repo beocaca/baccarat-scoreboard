@@ -1,4 +1,6 @@
 <template>
+  {{ state.currentRowIndex }}
+  {{ state.currentColumnIndex }}
   <div class="flex justify-center">
     <button type="button"
             :data-test="'btn-'+item.title"

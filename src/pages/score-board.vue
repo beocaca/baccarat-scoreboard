@@ -1,8 +1,10 @@
 <template>
   <div class="h-full w-full">
     <div class="container-page">
-      <div class="p-5 pt-10 flex justify-center">
-        <SpecialTable></SpecialTable>
+      <div class="p-5 pt-10 flex justify-center ">
+        <div class="container-table pb-4">
+          <SpecialTable></SpecialTable>
+        </div>
       </div>
       <div class="p-5 flex justify-center">
         <BasicTable></BasicTable>

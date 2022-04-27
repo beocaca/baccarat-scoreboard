@@ -1,5 +1,5 @@
 import {defineStore} from 'pinia'
-import {ref} from 'vue'
+import {nextTick, ref} from 'vue'
 
 export const useScores = defineStore('scores', () => {
     const state = ref({
@@ -42,6 +42,7 @@ export const useScores = defineStore('scores', () => {
         state.value.inputSample.push(_type)
     }
     const resetScores = () => {
+        state.value.columnLength = 18
         savePoint(0, 0, undefined)
         savePointBasic(0, 0, 0)
         initRowsBasic()
@@ -115,10 +116,20 @@ export const useScores = defineStore('scores', () => {
             rowIndex, columnIndex,
         }
     }
-    const addType = (_type) => {
+    const addType = async (_type) => {
+        if (state.value.currentColumnIndex === state.value.columnLength - 2) {
+            for (let i = 0; i < state.value.rowsLength; i++) {
+                for (let j = state.value.columnLength; j < state.value.columnLength + 9; j++) {
+                    state.value.rows[i][j] = 0
+                }
+            }
+            state.value.columnLength += 9
+        }
         let point = getPointIndex(_type)
         state.value.rows[point.rowIndex][point.columnIndex] = _type
         savePoint(point.rowIndex, point.columnIndex, _type)
+        await nextTick()
+        document.querySelector('.container-table').scrollTo(Number.MAX_SAFE_INTEGER, 0)
     }
     const savePoint = (rowIndex, columnIndex, _type) => {
         state.value.currentRowIndex = rowIndex
@@ -160,6 +171,6 @@ export const useScores = defineStore('scores', () => {
     }
 
     return {
-        state, resetScores, addScoreInput, initRows, initData, initRowsBasic, initDataBasic
+        state, resetScores, addScoreInput, initRows, initData, initRowsBasic, initDataBasic,
     }
 })

@@ -19,4 +19,9 @@ import Layout from './layouts/default.vue'
   margin: 0 auto;
 }
 
+.container-table {
+  max-width: 720px;
+  overflow: scroll;
+}
+
 </style>
