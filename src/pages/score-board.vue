@@ -7,7 +7,9 @@
         </div>
       </div>
       <div class="p-5 flex justify-center">
+        <div class="container-table pb-4">
         <BasicTable></BasicTable>
+        </div>
         <div class="ml-8"
              style="width: 21rem;">
           <InfoTable></InfoTable>

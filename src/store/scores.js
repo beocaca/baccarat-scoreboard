@@ -129,7 +129,7 @@ export const useScores = defineStore('scores', () => {
         state.value.rows[point.rowIndex][point.columnIndex] = _type
         savePoint(point.rowIndex, point.columnIndex, _type)
         await nextTick()
-        document.querySelector('.container-table').scrollTo(Number.MAX_SAFE_INTEGER, 0)
+        document.querySelectorAll('.container-table').forEach(e => e.scrollTo(Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER))
     }
     const savePoint = (rowIndex, columnIndex, _type) => {
         state.value.currentRowIndex = rowIndex
