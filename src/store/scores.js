@@ -60,6 +60,15 @@ export const useScores = defineStore('scores', () => {
     }
     const getPointIndex = (_type) => {
         let rowIndex = state.value.currentRowIndex, columnIndex = state.value.currentColumnIndex
+        let isPreColumnValue = () => {
+            let row = state.value.rows[rowIndex]
+            let value = row?.[columnIndex - 1]
+            if (!value) {
+                return false
+            }
+            let isHasValue = value === state.value.currentType
+            return isHasValue && state.value.rows[0][columnIndex] !== state.value.currentType
+        }
         let isNextRowValue = () => {
             let nextRow = state.value.rows[rowIndex + 1]
             if (!nextRow) {
@@ -69,35 +78,14 @@ export const useScores = defineStore('scores', () => {
             let isHasValue = value !== 0
             return isHasValue
         }
-        let isNextRowValue2 = () => {
-            let nextRow = state.value.rows[rowIndex + 2]
-            if (!nextRow) {
-                return false
-            }
-            let valueNextRow2 = nextRow[columnIndex]
-            let isSame = valueNextRow2 === state.value.currentType
-            return isSame
-        }
-        let isNextRowPreColumnSameValue = () => {
-            let nextRow = state.value.rows[rowIndex + 1]
-            if (!nextRow) {
-                return false
-            }
-            let valueNextRow2 = nextRow[columnIndex - 1]
-            const isNextRow2PreColumnSameValue = valueNextRow2 === state.value.currentType
-            return isNextRow2PreColumnSameValue
-        }
         if (state.value.currentColumnIndex === 0 && state.value.currentType === undefined) {
             rowIndex = 0
             columnIndex = 0
         } else if (_type === state.value.currentType) {
-            if (isNextRowValue()) {
+            if (isPreColumnValue()) {
                 rowIndex = state.value.currentRowIndex
                 columnIndex = state.value.currentColumnIndex + 1
-            } else if (isNextRowValue2()) {
-                rowIndex = state.value.currentRowIndex
-                columnIndex = state.value.currentColumnIndex + 1
-            } else if (isNextRowPreColumnSameValue()) {
+            } else if (isNextRowValue()) {
                 rowIndex = state.value.currentRowIndex
                 columnIndex = state.value.currentColumnIndex + 1
             } else if (state.value.currentRowIndex === state.value.rows.length - 1) {
