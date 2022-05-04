@@ -186,39 +186,13 @@ test.describe.parallel('scoreboards test', () => {
         for (let i = 1; i <= 2; i++) {
             await expect(page.locator(`[data-test="special-table"] >> tr:nth-child(${i}) td:nth-child(${11}) div `)).toBeEmpty()
         }
-        for (let i = 3; i <= 4; i++) {
-            await expect(page.locator(`[data-test="special-table"] >> tr:nth-child(${i}) td:nth-child(${11}) div div`))
+
+        for (let i = 10; i <= 17; i++) {
+            await expect(page.locator(`[data-test="special-table"] >> tr:nth-child(${3}) td:nth-child(${i}) div div`))
                 .toHaveClass(/border-red-cell/)
         }
-        await expect(page.locator(`[data-test="special-table"] >> tr:nth-child(${5}) td:nth-child(${11}) div `)).toBeEmpty()
-        await expect(page.locator(`[data-test="special-table"] >> tr:nth-child(${6}) td:nth-child(${11}) div div`))
-            .toHaveClass(/border-red-cell/)
-
-
-        for (let i = 1; i <= 3; i++) {
-            await expect(page.locator(`[data-test="special-table"] >> tr:nth-child(${i}) td:nth-child(${12}) div `)).toBeEmpty()
-        }
-        for (let i = 4; i <= 5; i++) {
-            await expect(page.locator(`[data-test="special-table"] >> tr:nth-child(${i}) td:nth-child(${12}) div div`))
-                .toHaveClass(/border-red-cell/)
-        }
-        await expect(page.locator(`[data-test="special-table"] >> tr:nth-child(${6}) td:nth-child(${12}) div`)).toBeEmpty()
-
-
-        for (let i = 1; i <= 4; i++) {
-            await expect(page.locator(`[data-test="special-table"] >> tr:nth-child(${i}) td:nth-child(${13}) div `)).toBeEmpty()
-        }
-        for (let i = 5; i <= 6; i++) {
-            await expect(page.locator(`[data-test="special-table"] >> tr:nth-child(${i}) td:nth-child(${13}) div div`))
-                .toHaveClass(/border-red-cell/)
-        }
-
-        for (let i = 1; i <= 5; i++) {
-            await expect(page.locator(`[data-test="special-table"] >> tr:nth-child(${i}) td:nth-child(${14}) div `)).toBeEmpty()
-        }
-        await expect(page.locator(`[data-test="special-table"] >> tr:nth-child(${6}) td:nth-child(${14}) div div`))
-            .toHaveClass(/border-red-cell/)
-
+        await expect(page.locator(`[data-test="special-table"] >> tr:nth-child(${4}) td:nth-child(${11}) div `)).toBeEmpty()
+        await expect(page.locator(`[data-test="special-table"] >> tr:nth-child(${5}) td:nth-child(${10}) div `)).toBeEmpty()
         await expect(page.locator(`[data-test="title-BANKER"] .title`)).toHaveText('24')
         await expect(page.locator(`[data-test="title-PLAYER"] .title`)).toHaveText('15')
         await expect(page.locator(`[data-test="title-TIE"] .title`)).toHaveText('8')
@@ -241,7 +215,6 @@ test.describe.parallel('scoreboards test', () => {
         await expect(page.locator(`[data-test="title-PLAYER"] .title`)).toHaveText('0')
         await expect(page.locator(`[data-test="title-TIE"] .title`)).toHaveText('0')
         await expect(page.locator(`[data-test="title-TOTAL"] .title`)).toHaveText('0')
-        await page.pause()
         await context.close()
 
     })
