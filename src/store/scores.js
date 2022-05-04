@@ -116,7 +116,7 @@ export const useScores = defineStore('scores', () => {
             rowIndex, columnIndex,
         }
     }
-    const addType = async (_type) => {
+    const addType = (_type) => {
         if (state.value.currentColumnIndex === state.value.columnLength - 2) {
             for (let i = 0; i < state.value.rowsLength; i++) {
                 for (let j = state.value.columnLength; j < state.value.columnLength + 9; j++) {
@@ -128,8 +128,9 @@ export const useScores = defineStore('scores', () => {
         let point = getPointIndex(_type)
         state.value.rows[point.rowIndex][point.columnIndex] = _type
         savePoint(point.rowIndex, point.columnIndex, _type)
-        await nextTick()
         document.querySelectorAll('.container-table').forEach(e => e.scrollTo(Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER))
+        document.querySelector(`#special-table tr:nth-child(${point.rowIndex + 1}) td:nth-child(${point.columnIndex + 1})`)
+            ?.scrollIntoView({inline: "center"})
     }
     const savePoint = (rowIndex, columnIndex, _type) => {
         state.value.currentRowIndex = rowIndex
